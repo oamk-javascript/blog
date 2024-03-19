@@ -23,7 +23,7 @@ const render_post_span = (parent_element,post) => {
 }
 const render_post_link = (parent_element,post) => {
   const post_a = parent_element.appendChild(document.createElement('a'))
-  post_a.innerHTML = "delete"
+  post_a.innerHTML = '<i class="bi bi-trash"></i>'
   post_a.addEventListener('click',(event) => {
     posts.removePost(post.getId()).then(removed_id => {
       const article_to_remove = document.querySelector(`[data-key='${removed_id}']`)

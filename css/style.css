@@ -1,9 +1,13 @@
-article span {
-  margin-left: 20px;
+div#posts {
+  margin-top: 2em;
 }
 
-article span a {
-  color: #ff0000;
+h1 {
+  margin: 1em 0;
+}
+
+article span {
+  margin-left: 1em;
 }
 
 article span a:hover {
