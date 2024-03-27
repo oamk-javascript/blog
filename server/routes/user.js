@@ -4,7 +4,6 @@ const bcrypt = require('bcrypt')
 
 const userRouter = express.Router()
 
-
 userRouter.post("/login",async(req,res) => {
   console.log(req.body)
   try {
@@ -36,21 +35,21 @@ userRouter.post("/login",async(req,res) => {
 })
 
 userRouter.post("/register",async(req,res) => {
-  try {
     bcrypt.hash(req.body.password,10,async (err,hash) => {
       if (!err) {
-        const sql = "insert into account (email, password) values ($1,$2) returning id"
-        const result = await query(sql,[req.body.email,hash])
-        res.status(200).json({id: result.rows[0].id}) 
+        try {
+          const sql = "insert into account (email, password) values ($1,$2) returning id"
+          const result = await query(sql,[req.body.email,hash])
+          res.status(200).json({id: result.rows[0].id}) 
+        } catch (error) {
+          res.statusMessage = error
+          res.status(500).json({error: error})
+        }
       } else {
         res.statusMessage = err
         res.status(500).json({error: err})
       }
     })
-  } catch (error) {
-    res.statusMessage = error
-    res.status(500).json({error: error})
-  }
 })
 
 module.exports = {

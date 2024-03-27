@@ -1,10 +1,6 @@
-import { User } from './class/User.js'
 import { Posts } from './class/Posts.js'
 
-const user = new User()
 const posts = new Posts()
-
-console.log(user.id)
 
 const posts_div = document.querySelector('div#posts')
 const message_input = document.querySelector('input')

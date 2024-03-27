@@ -21,6 +21,10 @@ class User {
     return this.#email
   }
 
+  get isLoggedIn() {
+    return this.#id !== undefined ? true : false
+  }
+
   async login(email,password) {
     const data = JSON.stringify({email: email,password: password})
     const response = await fetch(BACKEND_URL + '/user/login',{
@@ -52,6 +56,12 @@ class User {
     } else {
       throw response.statusText
     }
+  }
+
+  logout() {
+    this.#id = undefined
+    this.#email = undefined
+    sessionStorage.removeItem('user')
   }
 
 }
