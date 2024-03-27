@@ -47,3 +47,12 @@ footer {
 footer p {
   color: var(--light-color) 
 }
+
+
+#login h3 {
+  margin-bottom: 1em;
+}
+
+#login button {
+  margin: 1em 0;
+}

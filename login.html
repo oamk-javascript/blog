@@ -35,15 +35,23 @@
       </div>
     </div>
   </nav>
-
   <div class="container">
     <div class="row">
-      <div class="col-md-8">
-        <p>IMPLEMENT LOGIN FORM HERE...</p>
+      <div class="col-md-8" id="login">
+        <h3>Login</h3>
+        <form>
+          <div>
+            <label for="user-email" class="form-label">User name</label>
+            <input type="email" class="form-control" id="user-email" placeholder="Type email">
+          </div>
+          <div>
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Type password">
+          </div>
+          <button type="submit" class="btn btn-primary" id="login-button">Submit</button>
+        </form>
+        <p>Do not have account yet? <a href="register.html">Register</a></p>
       </div>
-      <aside class="col-md-4">
-        SIDEBAR
-      </aside>
     </div>
   </div>
   <footer><p>Footer</p></footer>

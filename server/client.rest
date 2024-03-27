@@ -13,3 +13,30 @@ Content-Type: application/json
 
 ### Delete post
 DELETE http://localhost:3001/delete/5 HTTP/1.1
+
+### Login with valid credentials
+POST http://localhost:3001/user/login
+Content-Type: application/json
+
+{
+  "email":"admin@foo.com",
+  "password":"admin123"
+}
+
+### Login with invalid credentials
+POST http://localhost:3001/user/login
+Content-Type: application/json
+
+{
+  "email":"admin@foo.com",
+  "password":"wrongpassword"
+}
+
+### Registration 
+POST http://localhost:3001/user/register
+Content-Type: application/json
+
+{
+  "email":"test@foo.com",
+  "password":"test123"
+}
