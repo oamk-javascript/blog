@@ -10,8 +10,7 @@ document.querySelector('#login-button').addEventListener('click',(event) => {
   const password = password_input.value
 
   user.login(email, password).then(user => {
-    alert("Login ok")
-    console.log(user)
+    window.location.href="index.html"
   }).catch(error => {
     alert(error)
   })

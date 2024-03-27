@@ -1,16 +1,12 @@
+import { BACKEND_URL } from '../config.js'
 import { Post } from './Post.js'
 
 class Posts {
   #posts = []
-  #backend_url = ''
-
-  constructor(url) {
-    this.#backend_url = url
-  }
-
+  
   getPosts = () => {
     return new Promise(async(resolve,reject)=> {
-      fetch(this.#backend_url)
+      fetch(BACKEND_URL)
       .then(response => response.json())
       .then(json => {
         this.#readJson(json)
@@ -24,7 +20,7 @@ class Posts {
   addPost = (message_text) => {
     return new Promise(async(resolve, reject)=> {
       const json = JSON.stringify({message:message_text})
-      fetch(this.#backend_url + '/new',{
+      fetch(BACKEND_URL + '/new',{
         method: 'post',
         headers: {'Content-Type':'application/json'},
         body: json
@@ -40,7 +36,7 @@ class Posts {
 
   removePost = (id) => {
     return new Promise(async(resolve, reject)=> {
-      fetch(this.#backend_url + '/delete/' + id,{
+      fetch(BACKEND_URL + '/delete/' + id,{
         method: 'delete'
       })
       .then(response => response.json())

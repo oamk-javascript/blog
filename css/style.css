@@ -49,10 +49,10 @@ footer p {
 }
 
 
-#login h3 {
+#login h3,#registration h3 {
   margin-bottom: 1em;
 }
 
-#login button {
+#login button,#registration button {
   margin: 1em 0;
 }

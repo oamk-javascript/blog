@@ -2,7 +2,7 @@ import { User } from './class/User.js'
 import { Posts } from './class/Posts.js'
 
 const user = new User()
-const posts = new Posts('http://localhost:3001')
+const posts = new Posts()
 
 console.log(user.id)
 
