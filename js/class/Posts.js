@@ -17,22 +17,38 @@ class Posts {
     })
   }
 
-  addPost = (message_text) => {
+  /* addPost = (data) => {
     return new Promise(async(resolve, reject)=> {
-      const json = JSON.stringify({message:message_text})
       fetch(BACKEND_URL + '/new',{
         method: 'post',
         headers: {'Content-Type':'application/json'},
-        body: json
+        body: data
       })
       .then(response => response.json())
       .then(json => {
-        resolve(this.#addToArray(json.id,message_text))
+        resolve(this.#addToArray(json.id,json.message))
       }),(error => {
         reject(error)
       })
     })
+  } */
+
+  async addPost(data) {
+    const response = await fetch(BACKEND_URL + '/new',{
+      method: 'post',
+      headers: {'Content-Type':'application/json'},
+      body: data
+    })
+
+    if (response.ok === true) {
+      const json = await response.json()
+      return this.#addToArray(json.id,json.message)
+    } else {
+      throw response.statusText
+    }
   }
+
+
 
   removePost = (id) => {
     return new Promise(async(resolve, reject)=> {

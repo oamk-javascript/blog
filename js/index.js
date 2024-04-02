@@ -1,9 +1,16 @@
 import { Posts } from './class/Posts.js'
+import { User } from './class/User.js'
 
+const user = new User()
 const posts = new Posts()
 
 const posts_div = document.querySelector('div#posts')
-const message_input = document.querySelector('input')
+const add_new_post_link = document.querySelector('a#add-new-post-link')
+//const message_input = document.querySelector('input')
+
+if (user.isLoggedIn) {
+  add_new_post_link.style.display = "block"
+}
 
 const render_post_article = (post) => {
   const post_article = posts_div.appendChild(document.createElement('article'))
@@ -45,7 +52,7 @@ const getPosts = () => {
     alert(error)
   })
 }
-
+/* 
 message_input.addEventListener('keypress',(event) => {
   if (event.key === "Enter") {
     event.preventDefault()
@@ -58,6 +65,6 @@ message_input.addEventListener('keypress',(event) => {
       })
     }
   }
-})
+}) */
 
 getPosts()

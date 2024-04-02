@@ -1,5 +1,5 @@
-
-
+drop table if exists post;
+drop table if exists account;
 
 create table account (
   id serial primary key,
@@ -9,11 +9,11 @@ create table account (
 
 create table post (
   id serial primary key,
-  message text not null
+  title varchar(100) not null,
+  message text not null,
+  saved timestamp default current_timestamp,
+  account_id int,
+    constraint fk_account
+      foreign key(account_id)
+        references account(id)
 );
-
-
-insert into account (email,password) values ('admin@foo.com','admin123');
-
-insert into post (message) values ('My test message');
-insert into post (message) values ('My another test message');
