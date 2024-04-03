@@ -12,6 +12,16 @@ Content-Type: application/json
   "account_id": 1
 }
 
+### Add new comment
+POST http://localhost:3001/comment HTTP/1.1
+Content-Type: application/json
+
+{
+  "comment":"This is test comment",
+  "post_id":1,
+  "account_id":1
+}
+
 
 ### Delete post
 DELETE http://localhost:3001/delete/5 HTTP/1.1

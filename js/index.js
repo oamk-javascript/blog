@@ -15,6 +15,7 @@ if (user.isLoggedIn) {
 const render_post_article = (post) => {
   const post_article = posts_div.appendChild(document.createElement('article'))
   post_article.setAttribute('data-key',post.id.toString())
+  post_article.setAttribute('class','card post-article')
   render_post_title(post_article,post)
   render_post_by(post_article,post)
   render_post_p(post_article,post)
@@ -22,6 +23,7 @@ const render_post_article = (post) => {
 
 const render_post_title = (parent_element,post) => {
   const post_title = parent_element.appendChild(document.createElement('h3'))
+  post_title.setAttribute('class','card-title')
   post_title.innerHTML = post.title
 }
 

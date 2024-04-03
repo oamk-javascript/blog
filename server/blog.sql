@@ -1,3 +1,4 @@
+drop table if exists comment;
 drop table if exists post;
 drop table if exists account;
 
@@ -17,3 +18,17 @@ create table post (
       foreign key(account_id)
         references account(id)
 );
+
+create table comment (
+  id serial primary key,
+  comment_text text not null,
+  saved timestamp default current_timestamp,
+  post_id int,
+    constraint fk_post
+      foreign key (post_id)
+        references post(id),
+  account_id int,
+    constraint fk_account
+      foreign key (account_id)
+        references account(id)
+)

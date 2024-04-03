@@ -26,6 +26,10 @@ h1 {
   margin-top: 2em;
 }
 
+article.post-article {
+  padding: 1em;
+}
+
 article span {
   margin-left: 1em;
 }
