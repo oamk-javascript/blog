@@ -5,7 +5,6 @@ const bcrypt = require('bcrypt')
 const userRouter = express.Router()
 
 userRouter.post("/login",async(req,res) => {
-  console.log(req.body)
   try {
     const sql = "select * from account where email=$1"
     const result = await query(sql,[req.body.email])

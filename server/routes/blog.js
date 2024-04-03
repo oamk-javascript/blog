@@ -5,7 +5,11 @@ const blogRouter = express.Router()
 
 blogRouter.get("/",async (req,res) => {
   try {
-    const result = await query('select * from post')
+    const sql = `
+    select post.id,post.title,post.message,post.saved,account.email 
+    from post inner join account on post.account_id = account.id
+    `
+    const result = await query(sql)
     const rows = result.rows ? result.rows : []
     res.status(200).json(rows)
   } catch(error) {
