@@ -26,6 +26,10 @@ h1 {
   margin-top: 2em;
 }
 
+article {
+  margin: 1em 0;
+}
+
 article.post-article {
   padding: 1em;
 }

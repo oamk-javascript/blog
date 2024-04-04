@@ -13,7 +13,7 @@ create table post (
   title varchar(100) not null,
   message text not null,
   saved timestamp default current_timestamp,
-  account_id int,
+  account_id int not null,
     constraint fk_account
       foreign key(account_id)
         references account(id)
@@ -23,11 +23,11 @@ create table comment (
   id serial primary key,
   comment_text text not null,
   saved timestamp default current_timestamp,
-  post_id int,
+  post_id int not null,
     constraint fk_post
       foreign key (post_id)
         references post(id),
-  account_id int,
+  account_id int not null,
     constraint fk_account
       foreign key (account_id)
         references account(id)

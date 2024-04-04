@@ -6,7 +6,6 @@ const posts = new Posts()
 
 const posts_div = document.querySelector('div#posts')
 const add_new_post_link = document.querySelector('a#add-new-post-link')
-//const message_input = document.querySelector('input')
 
 if (user.isLoggedIn) {
   add_new_post_link.style.display = "block"
@@ -19,6 +18,8 @@ const render_post_article = (post) => {
   render_post_title(post_article,post)
   render_post_by(post_article,post)
   render_post_p(post_article,post)
+  if (user.isLoggedIn) render_comment_field(post_article,post)
+  
 }
 
 const render_post_title = (parent_element,post) => {
@@ -29,7 +30,6 @@ const render_post_title = (parent_element,post) => {
 
 const render_post_by = (parent_element,post) => {
   const author_p = parent_element.appendChild(document.createElement('p'))
-  //author_p.innerHTML = "by" + post.author + " " + post.date
   author_p.innerHTML = `by ${post.author} ${post.formattedDate}`
 }
 
@@ -56,6 +56,25 @@ const render_post_link = (parent_element,post) => {
     }).catch(error => {
       alert(error)
     })
+  })
+}
+
+const render_comment_field =(parent_element,post) => {
+  const comment_textarea = parent_element.appendChild(document.createElement('textarea'))
+  comment_textarea.addEventListener('keypress',(event) => {
+    if (event.key === "Enter") {
+      event.preventDefault()
+      const comment_text = comment_textarea.value
+
+      const data = JSON.stringify({comment: comment_text,account_id:user.id,post_id:post.id})
+      console.log(data)
+      posts.addComment(data).then(comment => {
+        comment_textarea.value = ''
+        console.log('Comment saved successfully')
+      }).catch(error => {
+        alert(error)
+      })   
+    }
   })
 }
 

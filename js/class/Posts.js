@@ -48,7 +48,20 @@ class Posts {
     }
   }
 
+  async addComment(data) {
+    const response = await fetch(BACKEND_URL + '/comment',{
+      method: 'post',
+      headers: {'Content-Type':'application/json'},
+      body: data
+    })
 
+    if (response.ok === true) {
+      const json = await response.json()
+      return json
+    } else {
+      throw response.statusText
+    }
+  }
 
   removePost = (id) => {
     return new Promise(async(resolve, reject)=> {
