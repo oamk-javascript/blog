@@ -18,6 +18,7 @@ const render_post_article = (post) => {
   render_post_title(post_article,post)
   render_post_by(post_article,post)
   render_post_p(post_article,post)
+  render_commentcount(post_article,post)
   if (user.isLoggedIn) render_comment_field(post_article,post)
   
 }
@@ -59,6 +60,12 @@ const render_post_link = (parent_element,post) => {
   })
 }
 
+const render_commentcount = (parent_element,post) => {
+  const comment_p = parent_element.appendChild(document.createElement('p'))
+  comment_p.setAttribute('id','comment' + post.id)
+  comment_p.innerHTML = "Comments " + post.comments
+}
+
 const render_comment_field =(parent_element,post) => {
   const comment_textarea = parent_element.appendChild(document.createElement('textarea'))
   comment_textarea.addEventListener('keypress',(event) => {
@@ -67,10 +74,9 @@ const render_comment_field =(parent_element,post) => {
       const comment_text = comment_textarea.value
 
       const data = JSON.stringify({comment: comment_text,account_id:user.id,post_id:post.id})
-      console.log(data)
-      posts.addComment(data).then(comment => {
+      posts.addComment(data).then(count => {
         comment_textarea.value = ''
-        console.log('Comment saved successfully')
+        document.querySelector('p#comment' + post.id).innerHTML = "Comments " + count
       }).catch(error => {
         alert(error)
       })   

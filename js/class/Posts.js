@@ -80,7 +80,7 @@ class Posts {
 
   #readJson = (json) => {
     json.forEach(node => {
-      const post = new Post(node.id,node.title,node.message,node.saved,node.email)
+      const post = new Post(node.id,node.title,node.message,node.saved,node.email,node.comment_count)
       this.#posts.push(post)
     });
   }

@@ -4,13 +4,15 @@ class Post {
   #message
   #date
   #author
+  #comments
 
-  constructor(id,title,message,date,author) {
+  constructor(id,title,message,date,author,comments) {
     this.#id = id
     this.#title = title
     this.#message = message
     this.#date = date
     this.#author = author
+    this.#comments = comments
   }
 
   get id() {
@@ -39,6 +41,10 @@ class Post {
 
   get author() {
     return this.#author
+  }
+
+  get comments() {
+    return this.#comments
   }
 }
 
