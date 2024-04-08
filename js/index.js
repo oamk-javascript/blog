@@ -6,6 +6,8 @@ const posts = new Posts()
 
 const posts_div = document.querySelector('div#posts')
 const add_new_post_link = document.querySelector('a#add-new-post-link')
+const modal_window = document.querySelector('div#modal')
+const close_span = document.querySelector('span.close')
 
 if (user.isLoggedIn) {
   add_new_post_link.style.display = "block"
@@ -64,6 +66,24 @@ const render_commentcount = (parent_element,post) => {
   const comment_p = parent_element.appendChild(document.createElement('p'))
   comment_p.setAttribute('id','comment' + post.id)
   comment_p.innerHTML = "Comments " + post.comments
+  comment_p.addEventListener('click',()=> {
+    render_comments(post)
+    modal_window.style.display = 'block'
+  })
+}
+
+const render_comments = (post) => {
+  const comments_ul = document.querySelector('ul#comment-list')
+  comments_ul.innerHTML = ""
+  posts.getComments(post.id).then(comments => {
+    comments.forEach(comment => {
+      const li = document.createElement('li')
+      li.innerHTML = comment.text + ' by ' + comment.author + ' ' + comment.formattedDate
+      comments_ul.appendChild(li)
+    })
+  }).catch(error => {
+    alert(error)
+  })
 }
 
 const render_comment_field =(parent_element,post) => {
@@ -83,6 +103,16 @@ const render_comment_field =(parent_element,post) => {
     }
   })
 }
+
+close_span.addEventListener('click',() => {
+  modal_window.style.display = 'none'
+})
+
+window.addEventListener('click',(event) => {
+  if (event.target === modal_window) {
+    modal_window.style.display = 'none'
+  }
+})
 
 const getPosts = () => {
   posts.getPosts().then(post_objects => {

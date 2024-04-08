@@ -1,5 +1,6 @@
 import { BACKEND_URL } from '../config.js'
 import { Post } from './Post.js'
+import { Comment } from './Comment.js'
 
 class Posts {
   #posts = []
@@ -47,6 +48,23 @@ class Posts {
       throw response.statusText
     }
   }
+
+  async getComments (post_id) {
+    const response = await fetch(BACKEND_URL + '/comments/' + post_id)
+    if (response.ok === true) {
+      const json = await response.json()
+      const comments = []
+      json.forEach(node => {
+        const comment = new Comment(node.id,node.comment_text,node.saved,node.email)
+        comments.push(comment)
+      })
+
+      return comments
+    } else {
+      throw response.statusText
+    }
+  }
+
 
   async addComment(data) {
     const response = await fetch(BACKEND_URL + '/comment',{

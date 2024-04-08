@@ -42,6 +42,25 @@ blogRouter.delete("/delete/:id",async(req,res) => {
   }
 })
 
+blogRouter.get("/comments/:id",async(req,res) => {
+  const post_id = Number(req.params.id)
+  try {
+    const sql = `
+    select comment.id,comment.comment_text,comment.saved,account.email
+    from comment inner join account
+    on comment.account_id = account.id
+    where comment.post_id = $1
+    `
+    const result = await query(sql,[post_id])
+    const rows = result.rows ? result.rows : []
+    res.status(200).json(rows)
+  } catch (error) {
+    res.statusMessage = error
+    res.status(500).json({error: error})
+  }
+})
+
+
 
 blogRouter.post("/comment",async(req,res) => {
   try {
