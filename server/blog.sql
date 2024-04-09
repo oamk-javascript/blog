@@ -12,6 +12,7 @@ create table post (
   id serial primary key,
   title varchar(100) not null,
   message text not null,
+  image_name varchar(100),
   saved timestamp default current_timestamp,
   account_id int not null,
     constraint fk_account

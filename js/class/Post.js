@@ -2,14 +2,16 @@ class Post {
   #id
   #title
   #message
+  #image
   #date
   #author
   #comments
 
-  constructor(id,title,message,date,author,comments) {
+  constructor(id,title,message,image,date,author,comments) {
     this.#id = id
     this.#title = title
     this.#message = message
+    this.#image = image
     this.#date = date
     this.#author = author
     this.#comments = comments
@@ -25,6 +27,10 @@ class Post {
 
   get message() {
     return this.#message
+  }
+
+  get image() {
+    return this.#image
   }
 
   get date() {

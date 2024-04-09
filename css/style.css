@@ -42,6 +42,10 @@ article span a:hover {
   font-weight: bold;
 }
 
+.post-image {
+  width: 500px;
+}
+
 footer {
   background-color: var(--dark-color);
   display: flex;

@@ -34,11 +34,11 @@ class Posts {
     })
   } */
 
-  async addPost(data) {
+  async addPost(formData) {
     const response = await fetch(BACKEND_URL + '/new',{
       method: 'post',
-      headers: {'Content-Type':'application/json'},
-      body: data
+      //headers: {'Content-Type':'application/json'},
+      body: formData
     })
 
     if (response.ok === true) {
@@ -98,7 +98,7 @@ class Posts {
 
   #readJson = (json) => {
     json.forEach(node => {
-      const post = new Post(node.id,node.title,node.message,node.saved,node.email,node.comment_count)
+      const post = new Post(node.id,node.title,node.message,node.image_name,node.saved,node.email,node.comment_count)
       this.#posts.push(post)
     });
   }

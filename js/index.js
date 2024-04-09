@@ -1,5 +1,6 @@
 import { Posts } from './class/Posts.js'
 import { User } from './class/User.js'
+import { BACKEND_URL } from './config.js'
 
 const user = new User()
 const posts = new Posts()
@@ -17,12 +18,22 @@ const render_post_article = (post) => {
   const post_article = posts_div.appendChild(document.createElement('article'))
   post_article.setAttribute('data-key',post.id.toString())
   post_article.setAttribute('class','card post-article')
+
+  if (post.image.length > 0) {
+    render_post_image(post_article,post)
+  }
   render_post_title(post_article,post)
   render_post_by(post_article,post)
   render_post_p(post_article,post)
   render_commentcount(post_article,post)
   if (user.isLoggedIn) render_comment_field(post_article,post)
-  
+}
+
+const render_post_image = (parent_element,post) => {
+  const img = parent_element.appendChild(document.createElement('img'))
+  img.setAttribute('class','card-img-top post-image')
+  img.setAttribute('alt','Post image')
+  img.src = BACKEND_URL + '/images/' + post.image
 }
 
 const render_post_title = (parent_element,post) => {
@@ -123,19 +134,5 @@ const getPosts = () => {
     alert(error)
   })
 }
-/* 
-message_input.addEventListener('keypress',(event) => {
-  if (event.key === "Enter") {
-    event.preventDefault()
-    const message_text = message_input.value.trim()
-    if (message_text!=='') {
-      posts.addPost(message_text).then(post => {
-        render_post_article(post)
-        message_input.value = ''
-        message_input.focus()
-      })
-    }
-  }
-}) */
 
 getPosts()

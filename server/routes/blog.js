@@ -6,7 +6,7 @@ const blogRouter = express.Router()
 blogRouter.get("/",async (req,res) => {
   try {
     const sql = `
-    select post.id,post.title,post.message,post.saved,account.email,
+    select post.id,post.title,post.message,post.image_name,post.saved,account.email,
     (select count(id) from comment where comment.post_id = post.id) as comment_count
         from post inner join account on post.account_id = account.id
     `
@@ -20,9 +20,21 @@ blogRouter.get("/",async (req,res) => {
 })
 
 blogRouter.post("/new",async(req,res) => {
+  let file_name = ""
   try {
-    const sql = 'insert into post (title,message,account_id) values ($1,$2,$3) returning *'
-    const result = await query(sql,[req.body.title,req.body.message,req.body.account_id])
+    if (req.files) {
+      const file = req.files.image
+      file_name = file.name
+      const uploadPath = `./public/images/${file_name}`
+      file.mv(uploadPath,(err) => {
+        if (err) {
+          throw new Error(err)
+        }
+      })
+    }
+
+    const sql = 'insert into post (title,message,image_name,account_id) values ($1,$2,$3,$4) returning *'
+    const result = await query(sql,[req.body.title,req.body.message,file_name,req.body.account_id])
     res.status(200).json(result.rows[0])
   } catch (error) {
     res.statusMessage = error
