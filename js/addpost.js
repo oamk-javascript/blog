@@ -22,7 +22,7 @@ document.querySelector('button#save-button').addEventListener('click',(event) =>
   //const json = JSON.stringify({title: title,message: message,account_id:user.id})
 
   if (title!=='' && message!=='') {
-    posts.addPost(formData).then(post => {
+    posts.addPost(formData,user.token).then(post => {
       window.location.href="index.html"
     }).catch(error => {
       alert(error)

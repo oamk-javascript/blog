@@ -34,10 +34,11 @@ class Posts {
     })
   } */
 
-  async addPost(formData) {
+  async addPost(formData,token) {
     const response = await fetch(BACKEND_URL + '/new',{
       method: 'post',
       //headers: {'Content-Type':'application/json'},
+      headers: {Authorization: token},
       body: formData
     })
 
@@ -81,19 +82,18 @@ class Posts {
     }
   }
 
-  removePost = (id) => {
-    return new Promise(async(resolve, reject)=> {
-      fetch(BACKEND_URL + '/delete/' + id,{
-        method: 'delete'
-      })
-      .then(response => response.json())
-      .then(json => {
-        this.#removeFromArray()
-        resolve(id)
-      }),(error => {
-        reject(error)
-      })
+  async removePost(id,token)  {
+    const response = await fetch(BACKEND_URL + '/delete/' + id,{
+      method: 'delete',
+      headers: {Authorization: token},
     })
+
+    if (response.ok === true) {
+      this.#removeFromArray(id)
+      return id
+    } else {
+      throw response.statusText
+    }
   }
 
   #readJson = (json) => {

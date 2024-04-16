@@ -1,6 +1,8 @@
 const express = require('express')
 const { query } = require('../helpers/db.js')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 const userRouter = express.Router()
 
@@ -12,8 +14,16 @@ userRouter.post("/login",async(req,res) => {
       bcrypt.compare(req.body.password,result.rows[0].password,(err,bcrypt_res) => {
         if (!err) {
           if (bcrypt_res === true) {
+            const token = jwt.sign({user: req.body.email},process.env.JWT_SECRET_KEY)
+            console.log(token)
             const user = result.rows[0]
-            res.status(200).json({"id":user.id,"email":user.email})
+            res.status(200).json(
+              {
+                "id":user.id,
+                "email":user.email,
+                "token":token
+              }
+            )
           } else {
             res.statusMessage = 'Invalid login'
             res.status(401).json({error: 'Invalid login'})

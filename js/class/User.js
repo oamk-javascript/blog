@@ -3,6 +3,7 @@ import { BACKEND_URL } from "../config.js"
 class User {
   #id = undefined
   #email = undefined
+  #token = undefined
 
   constructor() {
     const userFromStorage = sessionStorage.getItem('user')
@@ -10,6 +11,7 @@ class User {
       const userObject = JSON.parse(userFromStorage)
       this.#id = userObject.id
       this.#email = userObject.email
+      this.#token = userObject.token
     }
   }
 
@@ -19,6 +21,10 @@ class User {
 
   get email() {
     return this.#email
+  }
+
+  get token() {
+    return this.#token
   }
 
   get isLoggedIn() {
@@ -36,6 +42,7 @@ class User {
       const json = await response.json()
       this.#id = json.id
       this.#email = json.email
+      this.#token = json.token
       sessionStorage.setItem('user',JSON.stringify(json))
       return this
     } else {
@@ -61,6 +68,7 @@ class User {
   logout() {
     this.#id = undefined
     this.#email = undefined
+    this.#token = undefined
     sessionStorage.removeItem('user')
   }
 

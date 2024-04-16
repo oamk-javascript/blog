@@ -1,5 +1,8 @@
 const express = require('express')
 const { query } = require('../helpers/db.js')
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
+const { auth } = require('../helpers/auth.js')
 
 const blogRouter = express.Router()
 
@@ -19,7 +22,7 @@ blogRouter.get("/",async (req,res) => {
   }
 })
 
-blogRouter.post("/new",async(req,res) => {
+blogRouter.post("/new",auth,async(req,res) => {
   let file_name = ""
   try {
     if (req.files) {
@@ -42,7 +45,7 @@ blogRouter.post("/new",async(req,res) => {
   }
 })
 
-blogRouter.delete("/delete/:id",async(req,res) => {
+blogRouter.delete("/delete/:id",auth,async(req,res) => {
   const id = Number(req.params.id)
   try {
     const sql = 'delete from post where id = $1'

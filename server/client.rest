@@ -8,12 +8,35 @@ GET http://localhost:3001/comments/1
 ### Add new post
 POST http://localhost:3001/new HTTP/1.1
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidGVzdEBmb28uY29tIiwiaWF0IjoxNzEzMjYwMTU1fQ.PCw0JMJGa97d-IABPwy9JYpHqUrXw2x1I7kphr-8XwE
 
 {
   "title": "My test title",
   "message": "Test message from REST Client",
   "account_id": 1
 }
+
+### Add new post without token
+POST http://localhost:3001/new HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "My test title",
+  "message": "Test message from REST Client",
+  "account_id": 1
+}
+
+### Add new post with invalid token
+POST http://localhost:3001/new HTTP/1.1
+Content-Type: application/json
+Authorization: InvalidToken
+
+{
+  "title": "My test title",
+  "message": "Test message from REST Client",
+  "account_id": 1
+}
+
 
 ### Add new comment
 POST http://localhost:3001/comment HTTP/1.1
@@ -28,6 +51,14 @@ Content-Type: application/json
 
 ### Delete post
 DELETE http://localhost:3001/delete/5 HTTP/1.1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidGVzdEBmb28uY29tIiwiaWF0IjoxNzEzMjYwMTU1fQ.PCw0JMJGa97d-IABPwy9JYpHqUrXw2x1I7kphr-8XwE
+
+### Delete post without token
+DELETE http://localhost:3001/delete/5 HTTP/1.1
+
+### Delete post with invalid token
+DELETE http://localhost:3001/delete/5 HTTP/1.1
+Authorization: InvalidToken
 
 ### Login with valid credentials
 POST http://localhost:3001/user/login

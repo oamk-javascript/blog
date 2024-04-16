@@ -62,7 +62,7 @@ const render_post_link = (parent_element,post) => {
   const post_a = parent_element.appendChild(document.createElement('a'))
   post_a.innerHTML = '<i class="bi bi-trash"></i>'
   post_a.addEventListener('click',(event) => {
-    posts.removePost(post.id).then(removed_id => {
+    posts.removePost(post.id,user.token).then(removed_id => {
       const article_to_remove = document.querySelector(`[data-key='${removed_id}']`)
       if (article_to_remove) {
         posts_div.removeChild(article_to_remove)
